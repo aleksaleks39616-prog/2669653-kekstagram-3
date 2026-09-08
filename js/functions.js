@@ -14,4 +14,4 @@ for (let i = cleaned.length - 1; i >= 0; i--) {
 return cleaned === reversed;
 }
 
-console.log (checkPalindrom ('торт'));
+console.log (checkPalindrom ('топот'));
