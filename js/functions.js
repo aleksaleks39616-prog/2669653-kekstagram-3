@@ -1,6 +1,6 @@
 // Функция проверки длины строки:
-function checkStringLenght(string, maxLength) {
-  return string.lenght <= maxLength;
+function checkStringLength(string, maxLength) {
+  return string.length <= maxLength;
 }
 checkStringLength('Мой проект', 20);
 
