@@ -1,6 +1,6 @@
 // Функция проверки длины строки:
-function checkStiongLenght(string, maxLength) {
-  return string.length <= maxLength;
+function checkStringLenght(string, maxLength) {
+  return string.lenght <= maxLength;
 }
 checkStringLength('Мой проект', 20);
 
@@ -9,9 +9,9 @@ function checkPalindrom (string) {
 let cleanded = string.replaceAll(' ', '').toLowerCase();
 let reversed = '';
 for (let i = cleaned.length - 1; i >= 0; i--) {
-    reversed += normalized[i];
+    reversed += cleaned[i];
 }
-return cleanded === reversed;
+return cleaned === reversed;
 }
 
 checkPalindrom ('топот');
