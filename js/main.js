@@ -55,6 +55,15 @@ const DESCRIPTIONS = [
 //Переменная с числом объектов
 const PHOTO_COUNT = 25;
 
+// Переменные для остальных числовых значений
+const MIN_COMMENTS = 0;
+const MAX_COMMENTS = 30;
+const MIN_LIKES = 15;
+const MAX_LIKES = 200;
+const MIN_AVATAR_ID = 1;
+const MAX_AVATAR_ID = 6;
+
+
 
 // Счётчик ID-номера к каждой фотографии
 let photoIdCounter = 1;
@@ -99,7 +108,7 @@ function createMessage() {
 function createComment() {
   const comment = {
     id: commentIdCounter,
-    avatar: 'img/avatar-' + getRandomInteger(1, 6) + '.svg',
+    avatar: 'img/avatar-' + getRandomInteger(MIN_AVATAR_ID, MAX_AVATAR_ID) + '.svg',
     message: createMessage(),
     name: getRandomArrayElement(NAMES),
   };
@@ -111,7 +120,7 @@ function createComment() {
 
 // Функция массива комментариев (по условию от 1 до 30)
 function createComments() {
-  const commentCount = getRandomInteger(0, 30);
+  const commentCount = getRandomInteger(MIN_COMMENTS, MAX_COMMENTS);
 
   return Array.from({ length: commentCount }, createComment);
 }
@@ -122,7 +131,7 @@ function createPhoto() {
     id: photoIdCounter,
     url: 'photos/' + photoIdCounter + '.jpg',
     description: DESCRIPTIONS[photoIdCounter - 1],
-    likes: getRandomInteger(15, 200),
+    likes: getRandomInteger(MIN_LIKES, MAX_LIKES),
     comments: createComments(),
   };
 
