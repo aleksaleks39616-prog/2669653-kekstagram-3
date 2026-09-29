@@ -1,6 +1,6 @@
 // Модуль для констант и исходных значений массивов
 
-
+import { getRandomInteger, getRandomArrayElement } from './utils.js';
 
 //Массив имён
 const NAMES = [
@@ -67,7 +67,7 @@ const MAX_AVATAR_ID = 6;
 let photoIdCounter = 1;
 let commentIdCounter = 1;
 
-// Функции генерации
+//  Функция текста комментария (1 или 2 сообщения)
 function createMessage() {
   const sentenceCount = getRandomInteger(1, 2);
   const firstSentence = getRandomArrayElement(MESSAGES);
@@ -84,6 +84,7 @@ function createMessage() {
   return `${firstSentence} ${secondSentence}`;
 }
 
+// Функция одного комментария
 function createComment() {
   return {
     id: commentIdCounter++,
@@ -92,12 +93,13 @@ function createComment() {
     name: getRandomArrayElement(NAMES),
   };
 }
-
+// Функция массива комментариев
 function createComments() {
   const commentCount = getRandomInteger(MIN_COMMENTS, MAX_COMMENTS);
   return Array.from({ length: commentCount }, createComment);
 }
 
+// Функция создания фотографии
 function createPhoto() {
   return {
     id: photoIdCounter++,
@@ -108,6 +110,7 @@ function createPhoto() {
   };
 }
 
+// Генерация массива фотографий
 function generatePhotos(count) {
   return Array.from({ length: count }, createPhoto);
 }
