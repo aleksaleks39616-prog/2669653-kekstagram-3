@@ -10,7 +10,7 @@ import {
   MAX_AVATAR_ID
 } from './data.js';
 
-import { getRandomInteger, getRandomArrayElement } from './util.js';
+import { getRandomInteger, getRandomArrayElement } from './utils.js';
 
 let photoIdCounter = 1;
 let commentIdCounter = 1;
