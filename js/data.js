@@ -53,9 +53,9 @@ const DESCRIPTIONS = [
   'Летящий самолёт',
   'Прогулка на катере',
   'Осенние ветра'
-]
+];
 
-const PHOTO_COUNT = 25;
+
 const MIN_COMMENTS = 0;
 const MAX_COMMENTS = 30;
 const MIN_LIKES = 15;
@@ -117,9 +117,5 @@ function generatePhotos(count) {
 
 // Экспорт
 export {
-  NAMES,
-  MESSAGES,
-  DESCRIPTIONS,
-  PHOTO_COUNT,
   generatePhotos
 };
