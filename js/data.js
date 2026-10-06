@@ -74,12 +74,12 @@ function createMessage() {
 
   if (sentenceCount === 1) {
     return firstSentence;
-  }
+  };
 
   let secondSentence = getRandomArrayElement(MESSAGES);
   while (secondSentence === firstSentence) {
     secondSentence = getRandomArrayElement(MESSAGES);
-  }
+  };
 
   return `${firstSentence} ${secondSentence}`;
 }
@@ -97,7 +97,7 @@ function createComment() {
 function createComments() {
   const commentCount = getRandomInteger(MIN_COMMENTS, MAX_COMMENTS);
   return Array.from({ length: commentCount }, createComment);
-}
+};
 
 // Функция создания фотографии
 function createPhoto() {
@@ -113,7 +113,7 @@ function createPhoto() {
 // Генерация массива фотографий
 function generatePhotos(count) {
   return Array.from({ length: count }, createPhoto);
-}
+};
 
 // Экспорт
 export {
