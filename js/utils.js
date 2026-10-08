@@ -14,4 +14,4 @@ function getRandomArrayElement(elements) {
   return elements[getRandomInteger(0, elements.length - 1)];
 }
 
-export {getRandomInteger, getRandomArrayElement}
+export {getRandomInteger, getRandomArrayElement};
