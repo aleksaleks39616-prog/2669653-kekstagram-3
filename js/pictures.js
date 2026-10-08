@@ -19,13 +19,12 @@ const createPicture = function (photoGallery) {
 const renderPhotos = function (pictures) {
   pictures.forEach(function (picture) {
     const pictureElement = createPicture(picture);
-
     photoFragment.append(pictureElement);
   });
 
   picturesContainer.append(photoFragment);
 };
- 
+
 
 export { renderPhotos };
 

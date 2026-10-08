@@ -64,8 +64,8 @@ const MIN_AVATAR_ID = 1;
 const MAX_AVATAR_ID = 6;
 
 // Счётчики
-let photoIdCounter = 1;
-let commentIdCounter = 1;
+let photoIdCounter = 0;
+let commentIdCounter = 0;
 
 //  Функция текста комментария (1 или 2 сообщения)
 function createMessage() {
@@ -74,12 +74,12 @@ function createMessage() {
 
   if (sentenceCount === 1) {
     return firstSentence;
-  };
+  }
 
   let secondSentence = getRandomArrayElement(MESSAGES);
   while (secondSentence === firstSentence) {
     secondSentence = getRandomArrayElement(MESSAGES);
-  };
+  }
 
   return `${firstSentence} ${secondSentence}`;
 }
@@ -97,13 +97,14 @@ function createComment() {
 function createComments() {
   const commentCount = getRandomInteger(MIN_COMMENTS, MAX_COMMENTS);
   return Array.from({ length: commentCount }, createComment);
-};
+}
 
 // Функция создания фотографии
 function createPhoto() {
+  const currentId = photoIdCounter++;
   return {
-    id: photoIdCounter++,
-    url: `photos/${photoIdCounter}.jpg`,
+    id: currentId,
+    url: `photos/${currentId}.jpg`,
     description: getRandomArrayElement(DESCRIPTIONS),
     likes: getRandomInteger(MIN_LIKES, MAX_LIKES),
     comments: createComments(),
@@ -113,7 +114,7 @@ function createPhoto() {
 // Генерация массива фотографий
 function generatePhotos(count) {
   return Array.from({ length: count }, createPhoto);
-};
+}
 
 // Экспорт
 export {
