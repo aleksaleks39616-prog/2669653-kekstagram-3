@@ -101,10 +101,9 @@ function createComments() {
 
 // Функция создания фотографии
 function createPhoto() {
-  const currentId = photoIdCounter++;
   return {
-    id: currentId,
-    url: `photos/${currentId}.jpg`,
+    id: photoIdCounter++,
+    url: `photos/${photoIdCounter}.jpg`,
     description: getRandomArrayElement(DESCRIPTIONS),
     likes: getRandomInteger(MIN_LIKES, MAX_LIKES),
     comments: createComments(),
