@@ -5,17 +5,17 @@ const pictureTemplate = document.querySelector('#picture').content.querySelector
 const picturesContainer = document.querySelector('.pictures');
 const photoFragment = document.createDocumentFragment();
 
-const createPicture = function (photoGallery) {
+const createPicture = function (picture) {
   const photoElement = pictureTemplate.cloneNode(true);
   const imageElement = photoElement.querySelector('.picture__img');
-  imageElement.src = photoGallery.url;
-  imageElement.alt = photoGallery.description;
-  photoElement.querySelector('.picture__likes').textContent = photoGallery.likes;
-  photoElement.querySelector('.picture__comments').textContent = photoGallery.comments.length;
+  imageElement.src = picture.url;
+  imageElement.alt = picture.description;
+  photoElement.querySelector('.picture__likes').textContent = picture.likes;
+  photoElement.querySelector('.picture__comments').textContent = picture.comments.length;
 
   photoElement.addEventListener('click', (evt) => {
     evt.preventDefault();
-    openBigPicture(photoGallery);
+    openBigPicture(picture);
   });
   return photoElement;
 

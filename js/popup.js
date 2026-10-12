@@ -14,62 +14,74 @@ const pictureCloseButton = bigPicture.querySelector('.big-picture__cancel'); // 
 const commentSample = socialComments.querySelector('.social__comment'); // образец комментария
 
 
-// Функция, которая наполняет фото содержимым
-const fillBigPicture = function (photo) {
-  bigPictureImg.src = photo.url; // ссылка на картинку
-  bigPictureImg.alt = photo.description; // текст-описание картинки
-  likesCount.textContent = photo.likes; // число лайков в текстовом содержании
-  socialCaption.textContent = photo.description; // описание картинки
-  commentShownCount.textContent = photo.comments.length;
-  commentTotalCount.textContent = photo.comments.length;
+// Создаёт один комментарий: клонирует образец и наполняет его данными
+const createComment = (comment) => {
+  const commentItem = commentSample.cloneNode(true);
+  const commentAvatar = commentItem.querySelector('.social__picture');
+  const commentText = commentItem.querySelector('.social__text');
 
-  socialCommentsCount.classList.add('hidden'); //скрываем
-  loaderComments.classList.add('hidden'); //скрываем
+  commentAvatar.src = comment.avatar;
+  commentAvatar.alt = comment.name;
+  commentText.textContent = comment.message;
 
-  socialComments.innerHTML = ''; // очистка списка комментариев
+  return commentItem;
+};
 
-  // перебираем массив комментариев
+// Полностью перерисовывает список комментариев
+const renderComments = (comments) => {
+  socialComments.innerHTML = '';
+
   const commentsFragment = document.createDocumentFragment();
-  photo.comments.forEach((comment) => {
-    const commentItem = commentSample.cloneNode(true);
-    const commentAvatar = commentItem.querySelector('.social__picture');
-    const commentText = commentItem.querySelector('.social__text');
-
-    commentAvatar.src = comment.avatar;
-    commentAvatar.alt = comment.name;
-    commentText.textContent = comment.message;
-
-    commentsFragment.append(commentItem);
+  comments.forEach((comment) => {
+    commentsFragment.append(createComment(comment));
   });
 
   socialComments.append(commentsFragment);
-
 };
 
-// Открытие
+// Функция Заполняет окно данными конкретной фотографии
+const fillBigPicture = function (photo) {
+  bigPictureImg.src = photo.url;
+  bigPictureImg.alt = photo.description;
+  likesCount.textContent = photo.likes;
+  socialCaption.textContent = photo.description;
+  commentShownCount.textContent = photo.comments.length;
+  commentTotalCount.textContent = photo.comments.length;
+
+  socialCommentsCount.classList.add('hidden');
+  loaderComments.classList.add('hidden');
+
+  renderComments(photo.comments);
+};
+
+// Обработчик ESC
+
+
+const onDocumentKeydown = (evt) => {
+  if (evt.key === 'Escape') {
+    closeBigPicture();
+  }
+};
+
+// Открытие и закрытие
 
 const openBigPicture = function (photo) {
-  fillBigPicture(photo); //
-  bigPicture.classList.remove('hidden'); // показываем окно убирая класс скрытия
-  document.body.classList.add('modal-open'); // запрет скролла фона
+  fillBigPicture(photo);
+  bigPicture.classList.remove('hidden');
+  document.body.classList.add('modal-open');
+  document.addEventListener('keydown', onDocumentKeydown);
 };
 
 const closeBigPicture = function () {
   bigPicture.classList.add('hidden');
   document.body.classList.remove('modal-open');
+  document.removeEventListener('keydown', onDocumentKeydown);
 };
 
-// Обработчики событий
 
+// Кнопка крестика
 pictureCloseButton.addEventListener('click', () => {
   closeBigPicture();
 });
 
-document.addEventListener('keydown', (evt) => {
-  if (evt.key === 'Escape') {
-    closeBigPicture();
-  }
-});
-
 export { openBigPicture };
-
