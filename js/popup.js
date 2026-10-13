@@ -17,7 +17,7 @@ let shownCommentsCount = 0; // сколько комментариев уже п
 let currentComments = []; // комментарии открытого фото
 
 
-// Создаёт один комментарий: клонирует образец и наполняет его данными
+// Функция создания одного комментария
 const createComment = (comment) => {
   const commentItem = commentSample.cloneNode(true);
   const commentAvatar = commentItem.querySelector('.social__picture');
