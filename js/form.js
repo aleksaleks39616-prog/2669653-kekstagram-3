@@ -1,6 +1,8 @@
 
 // Поиск элементов
-
+const SCALE_STEP = 25; //  изменения масштаба
+const SCALE_MIN = 25; // минимальный масштаб
+const SCALE_MAX = 100; // максимальный масштаб
 const uploadInput = document.querySelector('.img-upload__input'); //выбор файла,  change открывает форму
 const uploadOverlay = document.querySelector('.img-upload__overlay');
 const previewImg = document.querySelector('.img-upload__preview img');
@@ -12,9 +14,7 @@ const uploadForm = document.querySelector('.img-upload__form');
 const uploadCancelButton = document.querySelector('.img-upload__cancel');
 
 // Состояние масштаба изображение
-const SCALE_STEP = 25; //  изменения масштаба
-const SCALE_MIN = 25; // минимальный масштаб
-const SCALE_MAX = 100; // максимальный масштаб
+
 let currentScale = SCALE_MAX; //  масштаб по умолчанию
 
 // Функция открытия формы
@@ -62,3 +62,83 @@ document.addEventListener('keydown', (evt) => {
     closeUploadForm();
   }
 });
+
+// Валидация хештегов
+
+//Поиск элемента
+const hashtagsInput = document.querySelector('.text__hashtags');
+
+// Функция разбивает строку на отдельные хэштеги по пробелам, пустые элементы отбрасываем
+const getHashtags = (value) => value.trim().split(/\s+/).filter(Boolean);
+
+//Хэштег начинается с символа # (решётка);
+
+const hasValidCharacters = (value) => {
+  const tags = getHashtags(value);
+  for (const tag of tags) {
+    if (!/^#[a-zа-яё0-9]+$/i.test(tag)) {
+      return false;
+    }
+  }
+  return true;
+};
+
+//хэштег не может состоять только из решётки
+
+const isNotOnlyHash = (value) => {
+  const tags = getHashtags(value);
+  for (const tag of tags) {
+    if (tag === '#') {
+      return false;
+    }
+  }
+  return true;
+};
+
+
+// Длина каждого хэштега, включая решётку, не больше 20 символов
+const isLengthValid = (value) => {
+  const tags = getHashtags(value);
+  for (const tag of tags) {
+    if (tag.length > 20) {
+      return false;
+    }
+  }
+  return true;
+};
+
+
+//Нельзя указать больше пяти хэштегов
+
+const isCountValid = (value) => getHashtags(value).length <= 5;
+
+
+// Без повторов, регистр не учитываем (#ХэшТег и #хэштег одинаковы)
+const isUnique = (value) => {
+  const tags = getHashtags(value).map((tag) => tag.toLowerCase());
+  return new Set(tags).size === tags.length;
+};
+
+//Если фокус находится в поле ввода хэштега, нажатие на Esc не должно приводить к закрытию формы редактирования изображения.
+
+document.addEventListener('keydown', (evt) => {
+  if (evt.key !== 'Escape') {
+    return;
+  }
+
+  if (uploadOverlay.classList.contains('hidden')) {
+    return;
+  }
+
+  if (document.activeElement === hashtagsInput) {
+    return;
+  }
+
+  closeUploadForm();
+});
+
+pristine.addValidator(hashtagsInput, isNotOnlyHash, 'Хэштег не может состоять из одной решётки');
+pristine.addValidator(hashtagsInput, hasValidCharacters, 'Хэштег должен начинаться с # и содержать только буквы и цифры');
+pristine.addValidator(hashtagsInput, isLengthValid, 'Максимальная длина хэштега 20 символов');
+pristine.addValidator(hashtagsInput, isCountValid, 'Нельзя указать больше пяти хэштегов');
+pristine.addValidator(hashtagsInput, isUnique, 'Один и тот же хэштег нельзя использовать дважды');
