@@ -1,5 +1,5 @@
 
-// Поиск элементов
+// Поиск элементов и объявление переменных
 const SCALE_STEP = 25; //  изменения масштаба
 const SCALE_MIN = 25; // минимальный масштаб
 const SCALE_MAX = 100; // максимальный масштаб
@@ -56,12 +56,6 @@ uploadCancelButton.addEventListener('click', () => {
   closeUploadForm();
 });
 
-// Esc закрывает форму
-document.addEventListener('keydown', (evt) => {
-  if (evt.key === 'Escape' && !uploadOverlay.classList.contains('hidden')) {
-    closeUploadForm();
-  }
-});
 
 // Валидация хештегов
 
@@ -121,6 +115,8 @@ const isUnique = (value) => {
 
 //Если фокус находится в поле ввода хэштега, нажатие на Esc не должно приводить к закрытию формы редактирования изображения.
 
+const isTextFieldFocused = () => document.activeElement === hashtagsInput || document.activeElement === commentInput;
+
 document.addEventListener('keydown', (evt) => {
   if (evt.key !== 'Escape') {
     return;
@@ -130,11 +126,28 @@ document.addEventListener('keydown', (evt) => {
     return;
   }
 
-  if (document.activeElement === hashtagsInput) {
+  if (isTextFieldFocused()) {
     return;
   }
 
   closeUploadForm();
+});
+
+// Валидация комментариев
+
+const commentInput = document.querySelector('.text__description');
+const isCommentValid = (value) => value.length <= 140;
+
+
+// Pristine
+
+const pristine = new Pristine(uploadForm, {
+  classTo: 'img-upload__field-wrapper',
+  errorClass: 'img-upload__field-wrapper--error',
+  successClass: 'img-upload__field-wrapper--success',
+  errorTextParent: 'img-upload__field-wrapper',
+  errorTextTag: 'div',
+  errorTextClass: 'pristine-error',
 });
 
 pristine.addValidator(hashtagsInput, isNotOnlyHash, 'Хэштег не может состоять из одной решётки');
@@ -142,3 +155,10 @@ pristine.addValidator(hashtagsInput, hasValidCharacters, 'Хэштег долж�
 pristine.addValidator(hashtagsInput, isLengthValid, 'Максимальная длина хэштега 20 символов');
 pristine.addValidator(hashtagsInput, isCountValid, 'Нельзя указать больше пяти хэштегов');
 pristine.addValidator(hashtagsInput, isUnique, 'Один и тот же хэштег нельзя использовать дважды');
+pristine.addValidator(commentInput, isCommentValid, 'Комментарий не может быть длиннее 140 символов');
+
+uploadForm.addEventListener('submit', (evt) => {
+  if (!pristine.validate()) {
+    evt.preventDefault();
+  }
+});
