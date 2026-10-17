@@ -291,3 +291,19 @@ const onEffectChange = (evt) => {
 effectsList.addEventListener('change', onEffectChange);
 
 
+// Сброс эффектов при открытии формы
+
+const resetEffects = () => {
+  currentEffect = 'none';
+
+  effectsList.querySelector('input[value="none"]').checked = true;
+
+  applyEffect(0);
+  effectLevelBlock.classList.add('hidden');
+
+  effectSlider.noUiSlider.updateOptions({
+    range: { min: 0, max: 1 },
+    step: 0.1,
+    start: 1,
+  });
+};
