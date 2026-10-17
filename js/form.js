@@ -289,3 +289,5 @@ const onEffectChange = (evt) => {
 };
 
 effectsList.addEventListener('change', onEffectChange);
+
+
