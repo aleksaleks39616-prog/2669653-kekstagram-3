@@ -26,7 +26,7 @@ const effectLevelValue = document.querySelector('.effect-level__value');
 // Состояние масштаба изображение
 
 let currentScale = SCALE_MAX; //  масштаб по умолчанию
-let currentEffect = 'none'// эффект по умолчанию
+let currentEffect = 'none';// эффект по умолчанию
 
 // Функция открытия формы
 
@@ -54,11 +54,7 @@ uploadInput.addEventListener('change', () => {
 const closeUploadForm = () => {
   uploadOverlay.classList.add('hidden');
   document.body.classList.remove('modal-open');
-
-
   uploadForm.reset();
-
-
   uploadInput.value = '';
 };
 
@@ -139,11 +135,10 @@ const isCommentValid = (value) => value.length <= 140;
 
 const pristine = new Pristine(uploadForm, {
   classTo: 'img-upload__field-wrapper',
-  errorClass: 'img-upload__field-wrapper--error',
   successClass: 'img-upload__field-wrapper--success',
   errorTextParent: 'img-upload__field-wrapper',
   errorTextTag: 'div',
-  errorTextClass: 'pristine-error',
+  errorTextClass: 'img-upload__field-wrapper--error',
 });
 
 pristine.addValidator(hashtagsInput, isNotOnlyHash, 'Хэштег не может состоять из одной решётки');
@@ -307,3 +302,10 @@ const resetEffects = () => {
     start: 1,
   });
 };
+
+uploadForm.addEventListener('reset', () => {
+  applyScale(SCALE_MAX);
+  resetEffects();
+});
+
+resetEffects();
