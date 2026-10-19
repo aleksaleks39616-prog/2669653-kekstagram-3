@@ -7,7 +7,6 @@ const scaleValueInput = document.querySelector('.scale__control--value'); // з�
 const previewImg = document.querySelector('.img-upload__preview img');
 let currentScale = SCALE_MAX; //  масштаб по умолчанию
 
-
 // Функция применения масштаба
 const applyScale = (value) => {
   currentScale = value;
@@ -33,5 +32,3 @@ scaleSmallerButton.addEventListener('click', () => changeScale(-1));
 scaleBiggerButton.addEventListener('click', () => changeScale(1));
 
 export { resetScale };
-
-

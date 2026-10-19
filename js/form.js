@@ -9,7 +9,6 @@ const uploadOverlay = document.querySelector('.img-upload__overlay');
 const uploadForm = document.querySelector('.img-upload__form');
 const uploadCancelButton = document.querySelector('.img-upload__cancel');
 
-
 // Функция открытия формы
 
 const openUploadForm = () => {
@@ -44,7 +43,6 @@ const closeUploadForm = () => {
 uploadCancelButton.addEventListener('click', () => {
   closeUploadForm();
 });
-
 
 document.addEventListener('keydown', (evt) => {
   if (evt.key !== 'Escape') {
