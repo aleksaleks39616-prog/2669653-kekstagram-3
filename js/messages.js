@@ -26,11 +26,6 @@ const showMessage = (templateId, blockClass, closeButtonClass) => {
 
   // Закрытие: убрать элемент из DOM
 
-  const closeMessage = () => {
-    messageElement.remove();
-    document.removeEventListener('keydown', onEscKeydown);
-    document.removeEventListener('click', onOutsideClick);
-  };
 
   //Сообщение должно удаляться со страницы после нажатия на кнопку .success__button
   closeButton.addEventListener('click', closeMessage);
@@ -50,6 +45,12 @@ const showMessage = (templateId, blockClass, closeButtonClass) => {
       closeMessage();
     }
   };
+
+  function closeMessage() {
+    messageElement.remove();
+    document.removeEventListener('keydown', onEscKeydown);
+    document.removeEventListener('click', onOutsideClick);
+  }
 
   document.addEventListener('click', onOutsideClick);
   //Разметку сообщения, которая находится в блоке #error внутри шаблона template, нужно разместить перед закрывающим тегом </body>
