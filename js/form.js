@@ -20,6 +20,7 @@ let previewUrl = null;
 const openUploadForm = () => {
   uploadOverlay.classList.remove('hidden');
   document.body.classList.add('modal-open');
+  document.addEventListener('keydown', onDocumentKeydown);
 };
 
 const showPreview = (file) => {
@@ -65,6 +66,7 @@ const closeUploadForm = () => {
   document.body.classList.remove('modal-open');
   uploadForm.reset();
   uploadInput.value = '';
+  document.removeEventListener('keydown', onDocumentKeydown);
 };
 
 
@@ -73,12 +75,8 @@ uploadCancelButton.addEventListener('click', (evt) => {
   closeUploadForm();
 });
 
-document.addEventListener('keydown', (evt) => {
+function onDocumentKeydown(evt) {
   if (evt.key !== 'Escape') {
-    return;
-  }
-
-  if (uploadOverlay.classList.contains('hidden')) {
     return;
   }
 
@@ -91,7 +89,7 @@ document.addEventListener('keydown', (evt) => {
   }
 
   closeUploadForm();
-});
+}
 
 
 uploadForm.addEventListener('reset', () => {
