@@ -17,7 +17,6 @@ let shownCommentsCount = 0;
 let currentComments = [];
 
 
-// Функция создания одного комментария
 const createComment = (comment) => {
   const commentItem = commentSample.cloneNode(true);
   const commentAvatar = commentItem.querySelector('.social__picture');
@@ -70,7 +69,6 @@ const fillBigPicture = (photo) => {
 };
 
 
-// Обработчик ESC
 const onDocumentKeydown = (evt) => {
   if (evt.key === 'Escape') {
     closeBigPicture();
@@ -79,7 +77,7 @@ const onDocumentKeydown = (evt) => {
 
 
 const openBigPicture = function (photo) {
-  shownCommentsCount = 0; // сбрасываем счётчик для нового фото
+  shownCommentsCount = 0;
   fillBigPicture(photo);
   bigPicture.classList.remove('hidden');
   document.body.classList.add('modal-open');
