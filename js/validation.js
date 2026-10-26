@@ -67,15 +67,11 @@ pristine.addValidator(hashtagsInput, isCountValid, 'Нельзя указать 
 pristine.addValidator(hashtagsInput, isUnique, 'Один и тот же хэштег нельзя использовать дважды');
 pristine.addValidator(commentInput, isCommentValid, 'Комментарий не может быть длиннее 140 символов');
 
-uploadForm.addEventListener('submit', (evt) => {
-  if (!pristine.validate()) {
-    evt.preventDefault();
-  }
-});
+const validateForm = () => pristine.validate();
 
 // Убирает ошибки валидации; вызывается из forms.js при сбросе формы
 const resetValidation = () => {
   pristine.reset();
 };
 
-export { isTextFieldFocused, resetValidation };
+export { isTextFieldFocused, resetValidation, validateForm };

@@ -1,6 +1,6 @@
 import { resetScale } from './scale.js';
 import { resetEffects } from './slider.js';
-import { isTextFieldFocused, resetValidation } from './validation.js';
+import { isTextFieldFocused, resetValidation, validateForm } from './validation.js';
 import { sendPhoto } from './server.js';
 import { showSuccess, showSubmitError, isMessageShown } from './messages.js';
 
@@ -119,7 +119,10 @@ const unblockSubmitButton = () => {
 ///  Отправка формы
 uploadForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
-
+  if (!validateForm()) {
+    showSubmitError();
+    return;
+  }
   const formData = new FormData(uploadForm);
 
   blockSubmitButton();
