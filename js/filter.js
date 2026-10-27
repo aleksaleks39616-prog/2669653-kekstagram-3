@@ -17,6 +17,12 @@ const FILTERS = {
   'filter-discussed': (photos) => photos.slice().sort((a, b) => b.comments.length - a.comments.length),
 };
 
+
+const filtersBlock = document.querySelector('.img-filters');
+const filtersForm = document.querySelector('.img-filters__form');
+
+let activeFilterId = 'filter-default';
+
 function shuffle(array) {
   const copy = array.slice();
   for (let i = copy.length - 1; i > 0; i--) {
@@ -25,11 +31,6 @@ function shuffle(array) {
   }
   return copy;
 }
-
-const filtersBlock = document.querySelector('.img-filters');
-const filtersForm = document.querySelector('.img-filters__form');
-
-let activeFilterId = 'filter-default';
 
 
 function debounce(callback) {
