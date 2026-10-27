@@ -8,16 +8,6 @@ const RANDOM_COUNT = 10;
 const TIMEOUT_DELAY = 500;
 
 
-const shuffle = (array) => {
-  const copy = array.slice();
-  for (let i = copy.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [copy[i], copy[j]] = [copy[j], copy[i]];
-  }
-  return copy;
-};
-
-
 const FILTERS = {
 
   'filter-default': (photos) => photos.slice(),
@@ -27,6 +17,14 @@ const FILTERS = {
   'filter-discussed': (photos) => photos.slice().sort((a, b) => b.comments.length - a.comments.length),
 };
 
+function shuffle(array) {
+  const copy = array.slice();
+  for (let i = copy.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+  return copy;
+}
 
 const filtersBlock = document.querySelector('.img-filters');
 const filtersForm = document.querySelector('.img-filters__form');
